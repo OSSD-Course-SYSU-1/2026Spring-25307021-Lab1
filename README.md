@@ -1,62 +1,93 @@
-# 开源软件贡献与学习目标
+# 多设备音乐界面
 
-## 对开源软件的贡献想法
+## 项目简介
 
-开源软件是推动技术进步和知识共享的重要力量。我认为参与开源贡献不仅能够提升个人技术能力，更能为整个开发者社区创造价值。以下是我对开源贡献的理解和想法：
+基于自适应和响应式布局，实现一次开发、多端部署音乐专辑。
 
-### 贡献的价值
-- **知识共享**：通过开源，我们可以将解决方案分享给全球开发者，避免重复造轮子
-- **协作学习**：参与开源项目能够学习到业界最佳实践和先进技术
-- **社区建设**：每一次贡献都在构建更强大的技术社区，促进技术生态的健康发展
+## 效果预览
+直板机效果图如下：
 
-### 贡献方式
-- **代码贡献**：修复 Bug、添加新功能、优化性能
-- **文档完善**：编写和改进项目文档，降低使用门槛
-- **问题反馈**：提交高质量的 Issue，帮助项目改进
-- **代码审查**：参与 Pull Request 的审查，提升代码质量
+![](screenshots/device/phone.png)
 
-## 本学期学习目标
+双折叠效果图如下：
 
-### 技术能力提升
-1. **掌握 Git 和 GitHub 工作流**
-   - 熟练使用 Git 分支管理、合并、变基等操作
-   - 理解 GitHub Flow 和 Git Flow 工作流程
-   - 学会处理代码冲突和版本回退
+![](screenshots/device/foldable.png)
 
-2. **参与开源项目实践**
-   - 选择 1-2 个感兴趣的开源项目进行深入研究
-   - 完成至少 3 次有意义的代码贡献
-   - 学习如何与项目维护者有效沟通
+平板效果图如下：
 
-3. **提升代码质量**
-   - 学习编写清晰、可维护的代码
-   - 掌握单元测试和集成测试
-   - 理解代码审查的标准和最佳实践
+![](screenshots/device/tablet.png)
 
-### 软技能发展
-1. **技术文档写作**
-   - 学会编写清晰的技术文档
-   - 提升英文技术文档的阅读和写作能力
+智能穿戴效果图如下：
 
-2. **社区协作能力**
-   - 学习如何在开源社区中有效沟通
-   - 培养团队协作和项目管理意识
-   - 建立技术人脉网络
+<img src="./screenshots/device/wearable.png" width="320">
 
-### 具体行动计划
-- **第 1-4 周**：系统学习 Git 和 GitHub 的使用，完成基础配置和练习
-- **第 5-8 周**：选择目标开源项目，熟悉项目结构和贡献流程
-- **第 9-12 周**：完成首次代码贡献，参与社区讨论
-- **第 13-16 周**：持续贡献，总结经验，形成个人开源贡献方法论
+## 工程目录
+```
+├──common                                     // 公共能力层
+│  ├──constantsCommon/src/main/ets            // 公共常量
+│  │  └──constants
+│  └──mediaCommon/src/main/ets                // 公共媒体方法
+│     ├──utils
+│     └──viewmodel
+├──features                                   // 基础特性层
+│  ├──live/src/main/ets                       // 直播页
+│  │  ├──constants
+│  │  ├──view
+│  │  └──viewmodel
+│  ├──live/src/main/resources                 // 资源文件目录
+│  ├──musicComment/src/main/ets               // 音乐评论页
+│  │  ├──constants
+│  │  ├──view
+│  │  └──viewmodel
+│  ├──musicComment/src/main/resources         // 资源文件目录
+│  ├──musicList/src/main/ets                  // 歌曲列表页
+│  │  ├──components
+│  │  ├──constants
+│  │  ├──lyric
+│  │  ├──view
+│  │  └──viewmodel
+│  └──musicList/src/main/resources            // 资源文件目录
+└──products                                   // 产品定制层
+   ├──phone/src/main/ets                      // 支持直板机、双折叠、平板
+   │  ├──common
+   │  ├──entryability
+   │  ├──pages
+   │  ├──phonebackupextability
+   │  └──viewmodel
+   ├──phone/src/main/resources                // 资源文件目录
+   ├──watch/src/main/ets                      // 支持智能穿戴
+   │  ├──constants                      
+   │  ├──pages
+   │  ├──view
+   │  ├──watchability
+   │  └──watchbackupability
+   └──watch/src/main/resources                // 资源文件目录
+```
 
-## 期望成果
+## 使用说明
 
-通过本学期的学习和实践，我希望能够：
-- 成为一名合格的开源贡献者
-- 建立持续学习和分享的习惯
-- 为技术社区做出实质性贡献
-- 为未来的职业发展打下坚实基础
+1. 根据连接的设备设置，智能穿戴选择“watch”，其他设备选择“phone”。
+  
+    ![img](./screenshots/device/img.png)
+2. 分别在直板机、双折叠、平板、智能穿戴安装并打开应用，不同设备的应用页面通过响应式布局和自适应布局呈现不同的效果。
+3. 点击界面上播放/暂停、上一首、下一首图标控制音乐播放功能。
+4. 点击界面上播放控制区空白处或列表歌曲跳转到播放页面。
+5. 点击界面上评论按钮跳转到对应的评论页面。
+6. 其他按钮无实际点击事件或功能。
 
----
+## 具体实现
+1. 使用栅格布局监听断点变化，实现不同断点下的差异显示。
+2. 通过Tabs组件或Swiper组件进行区域的切换。
+3. 使用Blank组件实现中间空格自适应拉伸。
+4. 智能穿戴设备设置borderRadius实现圆形表盘。
 
-*学习是一个持续的过程，开源精神在于分享与协作。让我们一起为构建更好的技术世界而努力！*
+## 相关权限
+
+不涉及
+
+## 约束与限制
+
+1. 本示例仅支持标准系统上运行，支持设备：直板机、双折叠（Mate X系列）、平板、智能穿戴。
+2. HarmonyOS系统：HarmonyOS 5.1.0 Release及以上。
+3. DevEco Studio版本：DevEco Studio 6.0.2 Release及以上。
+4. HarmonyOS SDK版本：HarmonyOS 6.0.2 Release SDK及以上。
